@@ -2,6 +2,18 @@
 
 *2019.03.21 CSimchick*
 
+    NOTES:
+    2019.03.21  Comments from project demo
+    * Need to develop a project schedule with deadlines for smaller work
+      packages, to ensure that I don't spend more time on any given task
+      than I can afford.  
+    * 
+    * 
+    * Partitioning individual jobs is a data engineering project in itself.  
+      Assume for this project that jobs are only dispatched to a resource 
+      node if they can fit within the available capacity.  Partitioning can 
+      be identified as a future enhancement.  
+
 
 Summary
 -------
@@ -22,6 +34,10 @@ For this demonstration project, we will assume a central control center in Seatt
 * Pacific Northwest - Primary energy generation is via hydroelectric power; relatively inexpensive and climate-friendly
 * Texas             - Fossil fuel generators provide most of the source energy; relatively inexpensive, but signifcant air pollution
 * Northeast         - Significant hydroelectric generation exists, but high-density urban population places significant demand on energy sources
+
+![The Problem](TheProblem.ps)
+
+![The Solution](TheSolution.ps)
 
 The scope of the present project will consider only the economic value associated with operational energy costs, and will not attempt to optimize based on other business value beyond ensuring the reliability and consistency of the data.  
 
