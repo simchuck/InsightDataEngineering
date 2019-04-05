@@ -1,0 +1,31 @@
+
+
+Weather
+- historical
+
+
+- real-time
+
+
+- forecast
+
+
+
+Energy Price
+- historical
+https://prices.nyiso.com/api/swagger-ui.html    NYISO Pricing Information API
+
+
+
+- real-time
+
+
+
+
+- forecast
+
+
+
+
+Miscellaneous
+http://www.tsp-data-portal.org/all-datasets     The Shift Project - Energy and Climate Data
