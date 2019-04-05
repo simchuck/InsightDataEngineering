@@ -1,0 +1,10 @@
+purchase_type: on_demand
+subnet_id: subnet-0dfb6854d784b2248
+num_instances: 1
+key_name: CSimchick-IAM-keypair
+security_group_ids: sg-04415319792a4aca7
+instance_type: m4.large
+tag_name: cs1-storage
+vol_size: 100
+role: master
+use_eips: true
