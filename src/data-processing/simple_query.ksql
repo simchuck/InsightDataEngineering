@@ -10,3 +10,10 @@ CREATE STREAM temperature-stream AS
 
 *** above query appears to be returning only every ~fourth item,
 *** and some items are not in order (need to check if this is the case in the source data)
+*** in my weather.dat file, there is a single discontinuity around 04.27->04/16 (?), but
+*** it should be only one place.  
+
+??? Could the issues be due to the processor node not being able to keep up with the 
+    parallelized Kafka stream?  
+    Should the KSQL server be running on the Kafka cluster, or on a separate instance as
+    I currently have it?
