@@ -1,6 +1,12 @@
 # artifacts from compile steps
 __pycache__
 
+# Restrict commit of passwords stored in properties file
+**/*.properties
+**/*.ini
+**/*.config 
+**/*.props
+
 # avoid large files
 .dat
 .tar.gz
