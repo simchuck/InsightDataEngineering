@@ -1,11 +1,15 @@
+# artifacts from compile steps
 __pycache__
 
+# avoid large files
 .dat
 .tar.gz
 
+# working notes
 background.txt
 dev_notes.txt
 
+# working files
 artifacts/
 research/
 wip/
