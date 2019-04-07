@@ -128,11 +128,13 @@ def simulate_topic_stream(topic, source_data):
 def consume_topic_stream(topic):
 
     try:
+        #record, value = consume_record(brokers, topic)
         consume_record(brokers, topic)
     except Exception as e:
         print('ERROR: Could not read from topic {0}'.format(topic))
         raise e
 
+    #yield record, value
     #print(result)
     #print()
 
@@ -176,7 +178,10 @@ if __name__ == '__main__':
         #consume_streams_for_resource_node()
         if args.topic == 'weather':
             consume_topic_stream(args.topic)
+        #    ts_weather, val_weather = consume_topic_stream(args.topic)
         elif args.topic == 'price':
             consume_topic_stream(args.topic)
+        #    ts_price, val_price = consume_topic_stream(args.topic)
         elif args.topic == 'demand':
             consume_topic_stream(args.topic)
+        #    ts_demand, val_demand = consume_topic_stream(args.topic)
