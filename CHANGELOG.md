@@ -1,1 +1,1 @@
-GeographicResourceDispatch/CHANGELOG.md
+project_ideas/GeographicResourceDispatch/CHANGELOG.md

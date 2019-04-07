@@ -1,0 +1,5 @@
+[ ] Edit all .yaml files as appropriate to confirm proper AWS configuration
+[ ] Create standard server configuration scripts for prompt, path, directories, file uploads, etc.
+[ ] Edit all .sh files to include configuration and installation for each instance as appropriate.
+[ ] Create "single-click" script to perform all operations
+[ ] Resolve issues with location of Pegasus installation

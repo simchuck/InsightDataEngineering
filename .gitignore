@@ -1,0 +1,11 @@
+__pycache__
+
+.dat
+.tar.gz
+
+background.txt
+dev_notes.txt
+
+artifacts/
+research/
+wip/
