@@ -1,0 +1,9 @@
+flask			https://github.com/InsightDataScience/data-engineering-ecosystem/wiki/Flask
+
+tornado			http://www.tornadoweb.org/en/stable/
+Tornado is a scalable, non-blocking web server and web application framework written in Python. This would help your Flask apps to handle multiple users without crashing it.
+
+grafana			http://docs.grafana.org/installation/debian/
+
+(database-connector)
+cassandra-driver	

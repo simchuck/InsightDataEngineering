@@ -1,0 +1,18 @@
+sudo apt install python3-pip
+pip3 install --upgrade pip
+for pkg in {boto3,smart-open,kafka-python,ksql}; 
+do
+    echo -e "Installing package $pkg"
+    pip3 install $pkg --user
+done
+# arrow, requests, sqlalchemy, 
+
+
+KSQL_INSTALL_PATH='~/confluent-5.2.1'
+# Add the KSQL binaries to the system path variable
+export PATH=${KSQL_INSTALL_PATH}/bin:${PATH}
+# Start the KSQL server
+ksql-server-start ${KSQL_INSTALL_PATH}/ksql/ksql-server.properties
+# Start the KSQL cli
+ksql http://localhost:9092
+
