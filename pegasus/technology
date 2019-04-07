@@ -1,0 +1,23 @@
+# Collection of install commands used on various machine instances for this project
+# TODO: confirm each of these commands and add to appropriate instantiation scripts
+
+# confluent-community-5.2.1.12.tar.gz               # 
+# confluentinc-kafka-connect-datagen-0.1.1.zip      # ??? data generator - prob. not needed
+
+# sudo apt install awscli
+# sudo apt install postgresql
+# sudo apt install jq
+
+# python -m pip install boto3 --user
+# python -m pip install smart-open --user
+# python -m pip install kafka-python --user
+# python -m pip install ksql --users
+# python -m pip install requests --users
+# python -m pip install sqlalchemy --users
+# python -m pip install arrow --users
+# python -m pip install postgres --users
+# python -m pip install flask --users
+# python -m pip install tornado --users
+# python -m pip install dash --users
+# python -m pip install grafana --users   # ???
+# python -m pip install pandas --users
