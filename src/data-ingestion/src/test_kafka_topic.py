@@ -24,20 +24,6 @@ brokers = ':9092,'.join(brokers) + ':9092'
 
 s3_bucket = 's3://csimchick-insight-static-data'
 
-### trying this with different data structures...STREAM_INFO
-###STREAM_INFO = [
-###    ['weather', 'weather', 'weather.dat'],
-###    ['cpu_demand', 'mis-data', 'mains.dat'],
-###    ['energy_price', 'energy-price', 'pjm_rt_fivemin_hrl_lmps.csv'],
-####    ['resource_capacity', 'weather.dat', 'weather'],
-###    ]
-###STREAM_INFO = [
-###    ('weather', 'weather', 'weather.dat'),
-###    ('cpu_demand', 'mis-data', 'mains.dat'),
-###    ('energy_price', 'energy-price', 'pjm_rt_fivemin_hrl_lmps.csv'),
-####    ('resource_capacity', 'weather.dat', 'weather'),
-###    ]
-###
 STREAM_INFO = {
     'weather': {'folder': 'weather', 'file': 'weather.dat'},
     'cpu_demand': {'folder': 'mis-data', 'file': 'mains.dat'},
@@ -168,20 +154,13 @@ if __name__ == '__main__':
 
     if args.mode == 'producer':
         if args.topic == 'weather':
-            simulate_topic_stream(args.topic, s3_bucket + '/weather/weather.dat')
+            s3_url = s3_bucket + '/weather/weather.dat'
         elif args.topic == 'price':
-            simulate_topic_stream(args.topic, s3_bucket + '/energy-price/pjm_rt_fivemin_hrl_lmps.csv')
+            s3_url = s3_bucket + '/energy-price/pjm_rt_fivemin_hrl_lmps.csv'
         elif args.topic == 'demand':
-            simulate_topic_stream(args.topic, s3_bucket + '/mis-data/mains.dat')
+            s3_url = s3_bucket + '/mis-data/mains.dat'
+        simulate_topic_stream(args.topic, s3_url)
         #simulate_streams_for_resource_node(topic)
     elif args.mode == 'consumer':
+        record = consume_topic_stream(args.topic)
         #consume_streams_for_resource_node()
-        if args.topic == 'weather':
-            consume_topic_stream(args.topic)
-        #    ts_weather, val_weather = consume_topic_stream(args.topic)
-        elif args.topic == 'price':
-            consume_topic_stream(args.topic)
-        #    ts_price, val_price = consume_topic_stream(args.topic)
-        elif args.topic == 'demand':
-            consume_topic_stream(args.topic)
-        #    ts_demand, val_demand = consume_topic_stream(args.topic)
