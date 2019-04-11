@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Query Kafka cluster for existing topics
 echo -e "Topics on Kafka cluster..."

@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-topic=${1:-weather-test}
+topic=${1}
 
 # Start console consumer to monitor specified Kafka topic
 echo -e "Monitoring topic: ${topic}..."

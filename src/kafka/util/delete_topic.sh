@@ -1,6 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-topic=${1:-weather-test}
+# Usage: delete_topic <topic_name>
+
+topic=${1}
 
 # Delete the specified topic from the Kafka cluster
 echo -e "Deleting topic: ${topic}..."

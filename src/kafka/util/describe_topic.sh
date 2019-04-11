@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-topic=${1:-weather-test}
+topic=${1}
 
 # Query Kafka cluster for information about specified topic
 echo -e "Description of topic: ${topic}..."
