@@ -9,6 +9,31 @@ import random
 import argparse
 
 
+### DEBUG: this function is not tested
+def window(data, window_size, start='LAST'):
+    """
+    Provides a view/window of specified size around the input iterable.
+
+    Input:
+        data            iterable    any iterable that can be indexed with with Python slicing
+        window_size     int         number of elements to show
+        start           int         (optional) starting location.  default shows from end
+
+    Returns:
+        deque of same type as data
+
+    Uses:
+        from collections import deque
+    """
+
+    if start == 'LAST':
+        return data[-window_size:]
+
+    end = min(start + window_size, len(data))
+
+    return deque(data[start:end], maxlen=window_size)
+
+
 if __name__ == '__main__':
 
     # Parse command line arguments.

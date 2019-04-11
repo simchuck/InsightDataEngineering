@@ -111,8 +111,6 @@ def generate_job_queue(number_of_jobs=10):
         import random
     """
 
-    ## Job Queue is created using a namedtuple to hold basic details for each job.
-    #Job = namedtuple('Job', 'id priority size')
 
     job_queue = deque([
         Job(id, random.randint(0, 5), int(random.gauss(10, 2)))
