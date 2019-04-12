@@ -1,6 +1,6 @@
 Real Time Resource Dispatch
 presentatation script - draft
-2019.04.11 (revisions in progress)
+2019.04.08
 
 
 ## Title / Introduction
@@ -9,67 +9,61 @@ presentatation script - draft
 
 Hello everyone.  My name is Charles Simchick and I am a Data Engineering Fellow with Insight.  
 
-I built a data pipleline that ingests data from multiple sources, processes these data streams in real-time, and uses the results to make decisions on the optimum utilization of distributed resources represented by that data.  
+I built a data pipleline that ingests and processes data from multiple sources in real-time, and executes an algorithm to determine the optimum dispatch of jobs across those resources.  
 
 
 ## Motiviation & Business Value
 
-[slide: Motivation][Energy is a commodity -- costs can be optimized across geographically distributed resources]
+[slide: Motivation]
 
-I would like to start by providing a little bit of context around the domain space in which I have chosen to implement my project.  I have a background in Energy Engineering, with a lot of experience managing and analyzing the time series data associated with that domain.  One of the most important aspects is the cost of energy.  
+My background is in Mechanical Engineering, with specific domain expertise in the management and analysis of data related to energy efficiency, and I have drawn on this background for inspiration in my project.  
 
-Electrical energy is made available through regional markets, each with its own <<cost structure>> related to the available fuel sources and generation infrastructure, and the population density across that region.  At the same time, weather variations have a strong corrleation with the energy required for cooling systems.  Taken together, the result is a continually varying cost for production and delivery of that energy, which is <<made practical>> in the real-time energy commodity pricing.  
+Energy is a commodity that is traded much like the financial markets, although the price for that energy can vary widely for different geographic locations.  The main drivers for these variations are the weather and the population density.  Hot weather leads to increased energy required for cooling.  High population density creates very acute demand spikes during the busiest times of the workday.  The energy markets account for these variations and provide "real-time" pricing.  
 
-Distributed computing resources can be located within any of these geographic regions, and thanks to the different time zones, there can be significant energy commodity price differences.  My project is <<focused>> on capitalizing on these differences to optimize the total cost for dispatching data processing jobs across the available "resource nodes".  
+[slide: Sample Data]
 
-[slide: Sample Data][Time series data for each resource node must be combined to generate the real-time pricing]
+For my hypothetical use case, I would like you to imagine a business model in which there are an arbitrary number of data processing resources at geographically distributed locations.  You woperate a business which leverages these distributed computing resources to process jobs from a prioritized job queue.  
 
-A real world application of this pipeline would use actual API data, however I am simulating the data sources for my hypothetical use case to allow more flexibility in <<analyzing>> and demonstrating data ingestion rates.  The siultions are based on representative historical data, and streams are generated for multiple resource nodes.  
+[slide: Data Transformations]
 
-[slide: Data Transformations][KSQL provides an accessible abstraction over the Kafka Streams API for real-time stream processing]
-
-The backbone of the data pipeline uses Apache Kafka, and the KSQL API from Confluent provides a very accessible interface to utilize the built-in streaming capabilities.  Intermediate transformations are made to the source data streams in real-time, and results from each resource node are considered against a prioritized job queue to determine the optimium dispatch of these jobs across the nodes.  
+Using real-time data for each of the "resource nodes", we can determine the cost for use of that resource, along with the available capacity at that resource, and dispatch our job queue appropriately.  For now, we will optimize on the lowest total cost for processing.  
 
 
 ## Demonstration
 
-[slide: Demonstration][The application allows me to spawn new nodes, add to the job queue, and tweak the ingestion rate parameters]
+[slide: Demonstration]
 [live demo of application]
 
 I am going to switch over now to demonstrate my application.  
 
-This is the main user interface, which shows the job queue on the left side of the display, along with a time-series plot showing the real-time variation in energy pricing <<and capacity>> for each resource node, and stacked bar charts representing how those jobs are dispatched to the resource nodes.  
+This is the main user interface, which is built using Python and Dash.  On the left of the display is my prioritized job queue, which lists all of the jobs in my pipeline, along with some information on the "size" of the job and its relative priority.  The time-series plots in the middle of the screen track the real-time status of the relevant metrics for each available resource node -- the price per compute-hour, and the total available capacity at the node.  The output of the algorithm is on the right, in the form of an optimized dispatch queue.  Jobs from the job queue are assigned to different resource nodes based on the optimization algorithm and placed on this list.  
 
-As data is ingested an processed, the node pricing and capacity values are updated, and the job queue changes to reflect the processing status.  
+Data is ingested into a Kafka cluster, processed in real-time using the KSQL stream processing API, and then read from the Kafka topics for display on the user interface.  
 
-<<Now I started the app a little bit before this presentation, and configured it to read real-time data from a couple of actual web APIs for a single location near XXX.  Since all of the elements for my hypothetical use case do not exist, I am simulating some of the input streams to generate the necessary data.  As you can see, the "real-time" data interval is relatively slow at about five minutes per record.  
->>
+Now I started the app a little bit before this presentation, and configured it to read real-time data from a couple of actual web APIs for a single location near XXX.  Since all of the elements for my hypothetical use case do not exist, I am simulating some of the input streams to generate the necessary data.  As you can see, the "real-time" data interval is relatively slow at about five minutes per record.  
 
-I am going to spawn a few more simulated resource nodes, and generate some new jobs for the queue to demonstrate the result...
+In order to exercise the data pipeline and explore its limitations with regards to the rate of ingestion and processing, I have downloaded representative historical data into an AWS S3 bucket, and wrote a simulation engine in Python to ingest from these static sources at an arbitrarily faster rate, and publish to my Kafka topics.  
 
-Next I will add more jobs to the queue, and increase the ingestion rate for each to speed things up...
+I am going to activate a few simulated resource nodes now, with a faster but still modest rate of about XXX events per second, to demonstrate the processing and dispatch.  
 
 ...
 
-As you can see, the time series plot indicates the variation in the pricing and capacity at each resource node, and the job queue is updated with current status of each job.  The resource load bar charts react dynamically to illustrate job dispatch.  
+As you can see, the time series plot indicates the variation in the pricing and capacity at each resource node, and the dispatch queue is populated to take advantage of the lowest cost resource available at the time of processing.  
 
 
 ## Technology
 
 [slide: Technology Stack]
 
-My pipeline is currently hosted entirely on Amazon AWS.  I have an S3 bucket with the static data used for the simulated data streams.  A single EC2 instance hosts all of my producer code to read records from the S3 bucket and make appropriate transformations for the simulation before publishing to the corresponding Kafka topics.  
+My pipeline is currently hosted entirely on Amazon AWS.  I have an S3 bucket to which I downloaded the representative historical data used as a basis for the simulated data streams.  A single EC2 instance hosts all of my producer code, written in Python, to read records from the S3 bucket and make appropriate transformations for the simulation, before publishing to the corresponding Kafka topics.  
 
 My Kafka cluster consists of four EC2 instances, with one master and three workers.  
 
-A separate EC2 instance hosts the Confluent KSQL API, which provides an abstraction over the Kafka KStreams API to perform real-time stream processing using a declarative SQL-like syntax.  The simplicity of this interface, along with the close integration into Kafka, makes this a very fast and attractive option for real-time processing.  
+A separate EC2 instances hosts the Confluent KSQL API, which provides an abstraction over the Kafka KStreams API to perform real-time stream processing using a declarative SQL-like syntax.  The simplicity of this interface, along with the close integration into Kafka, makes this a very attractive option for real-time processing.  
 
-I have another EC2 instance that hosts my consumer code, which reads data from the Kafka topics and performs the job queue dispatch optimization.  
+I have another EC2 instance that hosts my Python consumer scripts.  These read data from the Kafka topics and implement the job queue dispatch optimization algorithm to determine the appropriate resource nodes for each job.  
 
 A final EC2 instance hosts my user interface, which uses the Dash package to provide a web interface with dynamic charting appropriate for display of the real-time processing pipeline.  
-
-*** STOPPED EDITING HERE 2019.04.11 ***
-
 
 In addition to the data streams for each resource, node I am taking advantage of the Kafka architecture to publish both the job queue and dispatch queue into separate topics, which provides a convenient storage for accessing this information.  I am also using a Kafka topic to store "clickstream" data from the user interface input.  
 
@@ -126,6 +120,8 @@ I would like you to also be interested in me, so I would like to share a little 
 
 I will always consider myself first and foremost to be a Mechanical Engineer, and perhaps some of you may understand what I mean by this.  I have a lot of experience with project management and product development, and an affinity for filling the void whenever I find myself in a situation where effective leadership or management is not apparent.  
 
-Outside of my professional interests, I have a dog that makes sure I always have something to do in my "free time".  I enjoy hiking, performing with my Japanese taiko group, and participating as a judge in homebrewing competitions.  
+However I have many interests separate from my profession.  My dog consumes a substantial part of my daily live, and I enjoying getting out into nature as much as possible.  I am a member of a Japanese taiko drumming group, which provides an opportunity for both artistic expression and physical exertion.  I am a BJCP Master beer judge, and enjoy being able to make a critical analysis of the things I put into my body.  
+
+Beyond this, I have what I might refer to as an addiction to understanding, and I have been pursuing self-directed education for as long as I can remember, and in whatever topic I find interesting at the time.  
 
 I want to thank you again for your time, and I would be happy to answer any questions you might have.  
