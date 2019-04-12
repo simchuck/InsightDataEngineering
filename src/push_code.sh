@@ -30,9 +30,9 @@ esac
 push_from=${2}
 push_to="ubuntu@${node_ip}:~/${push_from}"
 
-echo -e "Uploding code to AWS instance:"
-echo -e "\tFROM:\t$(pwd)/${push_from}"
-echo -e "\tTO:\t${push_to}"
+echo -e "\nUploading code to AWS instance:"
+echo -e "FROM:\t$(pwd)/${push_from}"
+echo -e "TO:\t${push_to}"
 
 # Push all source code to remote
 scp -r -i ~/.ssh/CSimchick-IAM-keypair.pem "$(pwd)/${push_from}" "${push_to}"
