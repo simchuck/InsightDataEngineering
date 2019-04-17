@@ -1,0 +1,27 @@
+
+  node      price       capacity        load        jobs
+-------- ---------- -------------- ----------- -------------------------------------------------
+    1     $20.36 /c-hr   96.3 c-hr      71.3 %   001 002 005 007 010 011 013
+    2     $21.03 /c-hr   52.7 c-hr      88.1 %   008 009
+    3     $20.52 /c-hr   26.2 c-hr      41.2 %   003 004 006 012
+
+Job Queue
+  job id  priority  size   status   node   started   completed
+-------- --------- ------ -------- ------ --------- ----------
+
+    ... sort by status (ascending), priority (ascending), size (?)
+    ... limit to XX records (most active, so we can see things changing)
+
+
+
+Job Status
+  Pending       XXX.X c-hr   
+  Dispatched    XXX.X c-hr   $ XXXX.XX   $ XX.XX /c-hr
+  Completed     XXX.X c-hr   $ XXXX.XX   $ XX.XX /c-hr
+
+
+Node Stream
+  timestamp      node      price    capacity
+  timestamp      node      $/c-hr     c-hr
+
+k
